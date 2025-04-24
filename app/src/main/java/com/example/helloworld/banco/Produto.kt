@@ -5,6 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "produto")
 data class Produto(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val nome: String
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
+    val nome: String,
+    val valor: Double
+
+
 )
