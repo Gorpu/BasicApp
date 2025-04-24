@@ -1,32 +1,19 @@
 package com.example.helloworld.banco
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
-@Dao
+@Dao // Essa anotação diz que essa interface define métodos para interagir com o banco
 interface ProdutoDao {
+
     @Query("SELECT * FROM produto")
-    fun getAll(): List<Produto>
-
-    @Query("SELECT * FROM produto WHERE id IN (:id)")
-    fun loadAllByIds(id: IntArray): List<Produto>
-
-    @Query("SELECT * FROM produto WHERE nome LIKE :nome")
-    fun findByName(nome: String): Produto
+    suspend fun getAll(): List<Produto> // Retorna todos os produtos do banco
 
     @Insert
-    fun insert(produto: Produto)
-
-    @Delete
-    fun delete(produto: Produto)
+    suspend fun insert(produto: Produto) // Insere um novo produto
 
     @Update
-    fun update(produto: Produto)
+    suspend fun update(produto: Produto) // Atualiza um produto existente
 
-    //@Query("UPDATE produto SET nome = :nome, preco = :preco WHERE id = :id")
-    //fun updateProduto(id: Int, nome: String, preco: Double)
-
+    @Delete
+    suspend fun delete(produto: Produto) // Deleta um produto
 }

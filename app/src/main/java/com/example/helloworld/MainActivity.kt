@@ -11,17 +11,27 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.helloworld.banco.ProdutoRepository
+import com.example.helloworld.telas.CreateDBS
 import com.example.helloworld.ui.theme.HelloWorldTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val database = CreateDBS.getDatabase(MainActivity::class.java)
+        val dao = database.produtoDao()
+        val repository = ProdutoRepository(dao)
+
+        val viewModel = CadastroViewModel(repository)
+
         enableEdgeToEdge()
         setContent {
             HelloWorldTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    Tela(
+                        viewModel = viewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
